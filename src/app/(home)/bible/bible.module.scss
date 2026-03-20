@@ -1,0 +1,44 @@
+/* @define bible */
+.bible {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.bible__book,
+.bible__chapter,
+.bible__verse {
+    font-size: 2rem;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .bible__book,
+    .bible__chapter,
+    .bible__verse {
+        opacity: 0;
+        animation: fade-in 2s forwards;
+    }
+
+    .bible__book {
+        animation-delay: 0s;
+    }
+
+    .bible__chapter {
+        animation-delay: 1s;
+    }
+
+    .bible__verse {
+        animation-delay: 1s;
+    }
+}
