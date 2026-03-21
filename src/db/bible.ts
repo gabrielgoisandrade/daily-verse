@@ -432,4 +432,10 @@ const bible: Bible[] = [
     },
 ]
 
+const formatted = () => {
+	bible.map((b) => {
+
+	})
+}
+
 export default bible

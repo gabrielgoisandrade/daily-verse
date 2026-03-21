@@ -8,6 +8,10 @@ describe('Bible', () => {
         container = render(<Bible />).container
     })
 
+    it('should render the component', () => {
+        expect(container).not.toBeNull()
+    })
+
     it('should render a book', () => {
         const book = container.querySelector('.bible__book')
 
