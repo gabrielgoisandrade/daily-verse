@@ -1,6 +1,10 @@
-import { Bible } from '@/@types/Bible'
+interface BibleMetadata {
+    book: string
+    totalChapters: number
+    versesPerChapter: number[]
+}
 
-const bible: Bible[] = [
+const bible = [
     {
         book: 'Gênesis',
         totalChapters: 50,
@@ -430,12 +434,37 @@ const bible: Bible[] = [
             24, 21, 15, 27, 21,
         ],
     },
-]
+] as const
 
-const formatted = () => {
-	bible.map((b) => {
+type BookName = (typeof bible)[number]['book']
 
-	})
+type Chapter = {
+    [x: string]: number[]
 }
 
-export default bible
+type Bible = {
+    [K in BookName]: Chapter
+}
+
+const arrayOfChapters = (chapters: number) => Array(chapters).fill('')
+
+const arrayOfVerses = (verses: readonly number[], index: number) =>
+    Array(verses[index]).fill('')
+
+// @ts-expect-error Type
+const formattedBible: Bible = bible.reduce((acc: Bible, item) => {
+    acc[item.book] = arrayOfChapters(item.totalChapters).reduce(
+        (acc: Chapter, _, cIndex) => {
+            acc[cIndex + 1] = arrayOfVerses(item.versesPerChapter, cIndex).map(
+                (_, vIndex) => vIndex + 1,
+            )
+
+            return acc
+        },
+        {},
+    )
+
+    return acc
+}, {})
+
+export default formattedBible

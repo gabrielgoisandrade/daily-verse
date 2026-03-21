@@ -1,9 +1,14 @@
 import styles from './bible.module.scss'
+import { getRandomVerse } from './getRandomVerse'
 
 export const Bible = () => {
-    return <section className={styles.bible}>
-		<div className={styles.bible__book}>book</div>
-		<div className={styles.bible__chapter}>chapter</div>
-		<div className={styles.bible__verse}>verse</div>
-	</section>
+	const { book, chapter, verse } = getRandomVerse()
+
+    return (
+        <section className={styles.bible}>
+            <div className={styles.bible__book}>{book}</div>
+            <div className={styles.bible__chapter}>{chapter}</div>
+            <div className={styles.bible__verse}>{verse}</div>
+        </section>
+    )
 }
