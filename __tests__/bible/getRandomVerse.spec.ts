@@ -1,11 +1,12 @@
-import { getRandomVerse } from '@/app/(home)/bible/getRandomVerse';
-import bible from '@/db/bible';
+import { Verse } from '@/@types/Bible'
+import { generateVerse } from '@/app/(home)/bible/getRandomVerse'
+import bible from '@/db/bible'
 
-let verseOfTheDay: { book: string; chapter: number; verse: number }
+let verseOfTheDay: Verse
 
 describe('Get Random Verse', () => {
     beforeAll(() => {
-        verseOfTheDay = getRandomVerse()
+        verseOfTheDay = generateVerse()
     })
 
     it('should return a book', () => {
@@ -21,23 +22,17 @@ describe('Get Random Verse', () => {
     })
 
     it('should be a book that exists', () => {
-        const result = bible.find((b) => b.book === verseOfTheDay.book)
-        expect(result).toBeTruthy()
+        const result = Object.keys(bible)
+        expect(result).toContain(verseOfTheDay.book)
     })
 
-    it('should be a chapter that exists', () => {
-        const result = bible.find((b) => b.book == verseOfTheDay.book)
-
-        expect(result?.chapters[verseOfTheDay.chapter - 1]).toBeTruthy()
+    it('should be a chapter number that exists', () => {
+        const result = Object.keys(bible[verseOfTheDay.book])
+        expect(result).toContain(verseOfTheDay.chapter)
     })
 
-    it('should be a verse that exists', () => {
-        const result = bible.find((b) => b.book == verseOfTheDay.book)
-
-        expect(
-            result?.chapters[verseOfTheDay.chapter - 1][
-                verseOfTheDay.verse - 1
-            ],
-        ).toBeTruthy()
+    it('should be a verse number that exists', () => {
+        const result = bible[verseOfTheDay.book][verseOfTheDay.chapter]
+        expect(result).toContain(verseOfTheDay.verse)
     })
 })

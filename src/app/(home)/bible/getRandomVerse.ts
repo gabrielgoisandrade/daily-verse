@@ -1,5 +1,32 @@
+import { Verse } from '@/@types/Bible'
+import bible from '@/db/bible'
 
 const random = (value: number) => Math.floor(Math.random() * value)
 
-export const getRandomVerse = () => {
+const getRandomBook = () => {
+    const books = Object.keys(bible)
+    const randomBook = random(books.length)
+
+    return books[randomBook]
+}
+
+const getRandomChapter = (book: string) => {
+    const chapters = Object.keys(bible[book])
+    const randomChapter = random(chapters.length)
+    return chapters[randomChapter]
+}
+
+const getRandomVerse = (book: string, chapter: string) => {
+    const verses = bible[book][chapter]
+    const randomVerse = random(verses.length)
+
+    return verses[randomVerse]
+}
+
+export const generateVerse = () => {
+    const book = getRandomBook()
+    const chapter = getRandomChapter(book)
+    const verse = getRandomVerse(book, chapter)
+
+    return { book, chapter, verse } as Verse
 }

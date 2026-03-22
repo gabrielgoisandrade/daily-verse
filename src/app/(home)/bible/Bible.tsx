@@ -1,8 +1,8 @@
 import styles from './bible.module.scss'
-import { getRandomVerse } from './getRandomVerse'
+import { generateVerse } from './getRandomVerse'
 
 export const Bible = () => {
-	const { book, chapter, verse } = getRandomVerse()
+	const { book, chapter, verse } = generateVerse()
 
     return (
         <section className={styles.bible}>

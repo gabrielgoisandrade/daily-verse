@@ -1,10 +1,6 @@
-interface BibleMetadata {
-    book: string
-    totalChapters: number
-    versesPerChapter: number[]
-}
+import { Bible, BibleMetadata, Chapter } from '@/@types/Bible'
 
-const bible = [
+const bible: BibleMetadata[] = [
     {
         book: 'Gênesis',
         totalChapters: 50,
@@ -171,7 +167,7 @@ const bible = [
         versesPerChapter: [18, 26, 22, 16, 20, 12, 29, 17, 18, 20, 10, 14],
     },
     {
-        book: 'Cântico dos Cânticos',
+        book: 'Cantares',
         totalChapters: 8,
         versesPerChapter: [17, 17, 11, 16, 16, 13, 13, 14],
     },
@@ -434,36 +430,20 @@ const bible = [
             24, 21, 15, 27, 21,
         ],
     },
-] as const
+]
 
-type BookName = (typeof bible)[number]['book']
+const arrayOfChapters = ({ totalChapters }: BibleMetadata): string[] =>
+    Array(totalChapters).fill('')
 
-type Chapter = {
-    [x: string]: number[]
-}
+const arrayOfVerses = (verses: number): string[] => Array(verses).fill('')
 
-type Bible = {
-    [K in BookName]: Chapter
-}
-
-const arrayOfChapters = (chapters: number) => Array(chapters).fill('')
-
-const arrayOfVerses = (verses: readonly number[], index: number) =>
-    Array(verses[index]).fill('')
-
-// @ts-expect-error Type
 const formattedBible: Bible = bible.reduce((acc: Bible, item) => {
-    acc[item.book] = arrayOfChapters(item.totalChapters).reduce(
-        (acc: Chapter, _, cIndex) => {
-            acc[cIndex + 1] = arrayOfVerses(item.versesPerChapter, cIndex).map(
-                (_, vIndex) => vIndex + 1,
-            )
-
-            return acc
-        },
-        {},
-    )
-
+    acc[item.book] = arrayOfChapters(item).reduce((acc: Chapter, _, cIndex) => {
+        acc[cIndex + 1] = arrayOfVerses(item.versesPerChapter[cIndex]).map(
+            (_, vIndex) => vIndex + 1,
+        )
+        return acc
+    }, {})
     return acc
 }, {})
 
