@@ -1,9 +1,14 @@
+@use '@styles/abstracts' as *;
+
 /* @define bible */
 .bible {
     display: flex;
     flex-flow: row nowrap;
-    gap: 1rem;
+	gap: rem(4);
     justify-content: center;
+	padding: rem(5);
+	background-color: hsl(0deg 1% 32% / 17.4%);
+	border-radius: rem(5);
 }
 
 .bible__book,
