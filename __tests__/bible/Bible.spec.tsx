@@ -23,10 +23,4 @@ describe('Bible', () => {
 
         expect(chapter).toBeInTheDocument()
     })
-
-    it('should render a verse', () => {
-        const verse = container.querySelector('.bible__verse')
-
-        expect(verse).toBeInTheDocument()
-    })
 })

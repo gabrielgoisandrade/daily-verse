@@ -12,8 +12,7 @@
 }
 
 .bible__book,
-.bible__chapter,
-.bible__verse {
+.bible__chapter {
     font-size: rem(8);
 }
 
@@ -29,8 +28,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .bible__book,
-    .bible__chapter,
-    .bible__verse {
+    .bible__chapter {
         opacity: 0;
         animation: fade-in 2s forwards;
     }
@@ -40,10 +38,6 @@
     }
 
     .bible__chapter {
-        animation-delay: 1s;
-    }
-
-    .bible__verse {
         animation-delay: 1s;
     }
 }

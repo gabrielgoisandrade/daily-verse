@@ -7,8 +7,7 @@ export const Bible = () => {
     return (
         <section className={styles.bible}>
             <div className={styles.bible__book}>{book}</div>
-            <div className={styles.bible__chapter}>Cap. {chapter}</div>
-            <div className={styles.bible__verse}>Ver. {verse}</div>
+            <div className={styles.bible__chapter}>{chapter}:{verse}</div>
         </section>
     )
 }
