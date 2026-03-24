@@ -7,14 +7,14 @@
 	gap: rem(4);
     justify-content: center;
 	padding: rem(5);
-	background-color: hsl(0deg 1% 32% / 17.4%);
+	background-color: hsl(0deg 0% 54% / 35%);
 	border-radius: rem(5);
 }
 
 .bible__book,
 .bible__chapter,
 .bible__verse {
-    font-size: 2rem;
+    font-size: rem(8);
 }
 
 @keyframes fade-in {

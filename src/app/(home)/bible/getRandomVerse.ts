@@ -13,6 +13,7 @@ const getRandomBook = () => {
 const getRandomChapter = (book: string) => {
     const chapters = Object.keys(bible[book])
     const randomChapter = random(chapters.length)
+
     return chapters[randomChapter]
 }
 
@@ -23,10 +24,10 @@ const getRandomVerse = (book: string, chapter: string) => {
     return verses[randomVerse]
 }
 
-export const generateVerse = () => {
+export const generateVerse = (): Verse => {
     const book = getRandomBook()
     const chapter = getRandomChapter(book)
     const verse = getRandomVerse(book, chapter)
 
-    return { book, chapter, verse } as Verse
+    return { book, chapter, verse }
 }

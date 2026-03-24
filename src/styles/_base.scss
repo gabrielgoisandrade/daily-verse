@@ -1,0 +1,5 @@
+@use '@styles/abstracts' as *;
+
+body {
+	background: linear-gradient(to right, $bg-start-layer, $bg-end-layer);
+}
