@@ -1,5 +1,6 @@
 import { Verse } from '@/@types/Bible'
 import bible from '@/db/bible'
+import { formatDate } from './formatDate'
 
 const random = (value: number) => Math.floor(Math.random() * value)
 
@@ -28,6 +29,8 @@ export const generateVerse = (): Verse => {
     const book = getRandomBook()
     const chapter = getRandomChapter(book)
     const verse = getRandomVerse(book, chapter)
+    const today = new Date(Date.now())
+    const createdAt = formatDate(today)
 
-    return { book, chapter, verse }
+    return { book, chapter, verse, createdAt }
 }

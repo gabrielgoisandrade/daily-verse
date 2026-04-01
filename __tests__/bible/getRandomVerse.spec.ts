@@ -1,5 +1,5 @@
 import { Verse } from '@/@types/Bible'
-import { generateVerse } from '@/app/(home)/bible/getRandomVerse'
+import { generateVerse } from '@/app/(home)/bible/generateVerse'
 import bible from '@/db/bible'
 
 let verseOfTheDay: Verse

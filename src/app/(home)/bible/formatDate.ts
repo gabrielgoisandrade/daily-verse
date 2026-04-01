@@ -9,8 +9,5 @@ export const formatDate = (rawDate: Date): FormattedDate => {
         year: rawDate.getFullYear(),
     }
 
-	console.log(day, month, year)
-
-
     return `${day}/${month}/${year}`
 }

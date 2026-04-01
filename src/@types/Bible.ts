@@ -16,4 +16,5 @@ export interface Verse {
     book: string
     chapter: string
     verse: number
+	createdAt: string
 }
