@@ -19,12 +19,14 @@ export const Bible = () => {
             if (parsed.createdAt === today) {
                 // eslint-disable-next-line react-hooks/set-state-in-effect
                 setState(JSON.parse(stored))
-				return
+                return
             }
         }
 
-        localStorage.setItem('last_verse', JSON.stringify(generateVerse()))
-        setState(generateVerse())
+        const newVerse = generateVerse()
+
+        localStorage.setItem('last_verse', JSON.stringify(newVerse))
+        setState(newVerse)
     }, [])
 
     return (
