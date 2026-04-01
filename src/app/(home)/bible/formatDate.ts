@@ -5,7 +5,7 @@ type FormattedDate = `${string}/${string}/${string}`
 export const formatDate = (rawDate: Date): FormattedDate => {
     const { day, month, year } = {
         day: insertZero(rawDate.getDate()),
-        month: insertZero(rawDate.getMonth()),
+        month: insertZero(rawDate.getMonth() + 1),
         year: rawDate.getFullYear(),
     }
 

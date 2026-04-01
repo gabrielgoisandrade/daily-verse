@@ -9,13 +9,8 @@ import { generateVerse } from './generateVerse'
 export const Bible = () => {
     const [state, setState] = useState<Verse>()
 
-    const saveVerse = (verse: Verse) => {
-        setState(verse)
-        localStorage.setItem('last_verse', JSON.stringify(verse))
-    }
-
     useEffect(() => {
-        const today = formatDate(new Date(Date.now()))
+        const today = formatDate(new Date())
         const stored = localStorage.getItem('last_verse')
 
         if (stored) {
@@ -23,12 +18,13 @@ export const Bible = () => {
 
             if (parsed.createdAt === today) {
                 // eslint-disable-next-line react-hooks/set-state-in-effect
-                saveVerse(parsed)
-                return
+                setState(JSON.parse(stored))
+				return
             }
         }
 
-        saveVerse(generateVerse())
+        localStorage.setItem('last_verse', JSON.stringify(generateVerse()))
+        setState(generateVerse())
     }, [])
 
     return (

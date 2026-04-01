@@ -5,10 +5,7 @@ import { render } from '@testing-library/react'
 describe('Bible', () => {
     beforeEach(() => {
         localStorage.clear()
-    })
-
-    afterAll(() => {
-        jest.clearAllMocks()
+		jest.restoreAllMocks()
     })
 
     it('should render the component', () => {
@@ -17,25 +14,25 @@ describe('Bible', () => {
     })
 
     it('should set a new item if no previous value exists', () => {
-        const spy = jest.spyOn(Storage.prototype, 'setItem')
+        const spySet = jest.spyOn(Storage.prototype, 'setItem')
 
         render(<Bible />)
 
         const result = localStorage.getItem('last_verse')
 
-        expect(spy).toHaveBeenCalled()
+        expect(spySet).toHaveBeenCalled()
         expect(result).not.toBeNull()
     })
 
     it('should return the stored value if a previous value exists and the date is the same', () => {
-        const value = JSON.stringify({
+        const initialValue = JSON.stringify({
             book: 'book',
             chapter: '0',
             verse: '0',
-            createdAt: formatDate(new Date(Date.now())),
+            createdAt: formatDate(new Date()),
         })
 
-        localStorage.setItem('last_verse', value)
+        localStorage.setItem('last_verse', initialValue)
 
         const spySet = jest.spyOn(Storage.prototype, 'setItem')
 
@@ -43,47 +40,39 @@ describe('Bible', () => {
 
         const result = localStorage.getItem('last_verse')
 
-        expect(spySet).not.toHaveBeenCalledWith('last_verse')
-        expect(result).toEqual(value)
+        expect(spySet).not.toHaveBeenCalled()
+        expect(result).toEqual(initialValue)
     })
 
     it('should update the stored value if a previous value exists and the date is different', () => {
-        const currentValue = JSON.stringify({
+        const initialValue = JSON.stringify({
             book: 'book',
             chapter: '0',
             verse: '0',
             createdAt: formatDate(new Date(2026, 3, 30)),
         })
 
-        const newValue = JSON.stringify({
-            book: 'new book',
-            chapter: '1',
-            verse: '1',
-            createdAt: formatDate(new Date(Date.now())),
-        })
-
-        localStorage.setItem('last_verse', currentValue)
+        localStorage.setItem('last_verse', initialValue)
 
         const spySet = jest.spyOn(Storage.prototype, 'setItem')
-        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(newValue)
 
         render(<Bible />)
 
         const result = localStorage.getItem('last_verse')
 
-        expect(spySet).toHaveBeenCalledWith('last_verse', newValue)
-        expect(result).toEqual(newValue)
+        expect(spySet).toHaveBeenCalled()
+        expect(result).not.toEqual(initialValue)
     })
 
     it('should render a book', () => {
-        const container = render(<Bible />)
+        const { container } = render(<Bible />)
         const book = container.querySelector('.bible__book')
 
         expect(book).toBeInTheDocument()
     })
 
     it('should render a chapter', () => {
-        const container = render(<Bible />)
+        const { container } = render(<Bible />)
         const chapter = container.querySelector('.bible__chapter')
 
         expect(chapter).toBeInTheDocument()
